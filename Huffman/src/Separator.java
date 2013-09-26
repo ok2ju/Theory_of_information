@@ -45,8 +45,7 @@ public class Separator {
 			Record newRecord = new Record();
 			newRecord.setSymbol(penult.getSymbol() + lastRecord.getSymbol());
 			newRecord.setChance(penult.getChance() + lastRecord.getChance());
-			newRecord.setFrequence(penult.getFrequence()
-					+ lastRecord.getFrequence());
+			newRecord.setFrequence(penult.getFrequence() + lastRecord.getFrequence());
 
 			list.add(newRecord);
 
@@ -69,6 +68,8 @@ public class Separator {
 
 		writeFile("code.txt", sb.toString());
 		writeFile("encode_String.txt", eightBit(sb.toString()));
+		
+		System.out.println(getAverageLength()+" - Average Length");
 
 	}
 
@@ -98,7 +99,7 @@ public class Separator {
 				code = code + '0';
 				count++;
 			}
-
+			
 			String gfx[] = code.split("(?<=\\G.{8})");
 			
 			for (String element : gfx) {
@@ -115,10 +116,11 @@ public class Separator {
 		double averageLength = 0;
 
 		for (int i = 0; i < list.size(); i++) {
-			averageLength+=list.get(i).getChance();
+			String code = codeList.get(list.get(i).getSymbol().charAt(0));
+			averageLength+=list.get(i).getChance() * code.length();
 		}
 
-		return 0;
+		return (double)averageLength;
 	}
 
 	public void writeFile(String fileName, String text) {
