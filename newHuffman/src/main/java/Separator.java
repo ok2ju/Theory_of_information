@@ -16,6 +16,10 @@ public class Separator {
 	public Separator(String message) {
 		parser = new Parser(message);
 	}
+	
+	public Separator(){
+		
+	}
 
 	public void createCode(Record r, String code) {
 		String symbol = r.getSymbol();
@@ -27,7 +31,7 @@ public class Separator {
 			} else {
 				String currentCode = codeList.get(character);
 				codeList.remove(character);
-				codeList.put(character, currentCode + code);
+				codeList.put(character, code + currentCode);    //reverse code
 			}
 		}
 	}
@@ -55,7 +59,8 @@ public class Separator {
 
 			parser.sortTable();
 		}
-		System.out.println(codeList);
+		
+		System.out.println(codeList); //codes for each symbol
 
 		StringBuilder sb = new StringBuilder();
 
@@ -63,12 +68,14 @@ public class Separator {
 			sb.append(e.getValue());
 		}
 		System.out.println(sb); // code
-		//System.out.println(sb.length()); // code lenght
+		// System.out.println(sb.length()); // code lenght
 
 		System.out.println(eightBit(sb.toString())); // encode string
 
 		writeFile("code.txt", sb.toString());
 		writeFile("encode_String.txt", eightBit(sb.toString()));
+		
+		System.out.println("Average Length"+" ["+getAverageLength()+"]");
 
 	}
 
@@ -100,11 +107,13 @@ public class Separator {
 			}
 
 			String gfx[] = code.split("(?<=\\G.{8})");
-			
+
 			for (String element : gfx) {
 				sb.append(bin2dec(element));
 			}
 		}
+		
+		System.out.println(count+" ---------------------------< COUNT");
 
 		return sb.toString();
 	}
@@ -115,10 +124,11 @@ public class Separator {
 		double averageLength = 0;
 
 		for (int i = 0; i < list.size(); i++) {
-			averageLength+=list.get(i).getChance();
+			String code = codeList.get(list.get(i).getSymbol().charAt(0));
+			averageLength += list.get(i).getChance() * code.length();
 		}
 
-		return 0;
+		return (double) averageLength;
 	}
 
 	public void writeFile(String fileName, String text) {

@@ -1,16 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class Parser {
 
 	List<Record> table = new ArrayList<Record>();
-	Map<Character, Integer> frequenceList = new HashMap<Character, Integer>();
 
 	public Parser(String message) {
 		getTable(message);
@@ -25,7 +20,7 @@ public class Parser {
 	}
 
 	public List<Record> getTable(String message) {
-		/*
+
 		final int[] occurences = new int[256];
 		final char[] array = message.toCharArray();
 
@@ -57,33 +52,7 @@ public class Parser {
 			}
 		}
 		
-		System.out.println(table.size());*/
-		
-		for (char character : message.toCharArray()) {
-			if (!frequenceList.containsKey(character)) {
-				frequenceList.put(character, 1);
-			} else {
-				Integer frequence = frequenceList.get(character);
-				frequenceList.remove(character);
-				frequenceList.put(character, frequence + 1);
-			}
-		}
-		
-		Iterator<Entry<Character, Integer>> it = frequenceList.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry current = it.next();
-			Character ch = (Character) current.getKey();
-			Integer frequence = (Integer) current.getValue();
-
-			Double prob = frequence.doubleValue() / message.length();
-			
-			Record rec = new Record();
-			rec.setSymbol(ch.toString());
-			rec.setFrequence(frequence);
-			rec.setChance(prob);
-
-			table.add(rec);
-		}
+		System.out.println(table.size());
 
 		sortTable();
 
