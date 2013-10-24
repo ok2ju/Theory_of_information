@@ -16,9 +16,7 @@ public class Parser {
 		getTable(message);
 	}
 
-	public Parser() {
-
-	}
+	public Parser() { }
 
 	public List<Record> getTable() {
 		return table;
@@ -65,23 +63,20 @@ public class Parser {
 					+ table.get(i).getChance());
 		}
 
-		System.out.println("ENTROPY" + " [" + getEntropy() + "]");
+		System.out.println("Entropy" + " [" + getEntropy() + "]");
 
 		return table;
 	}
 
 	public double getEntropy() {
-
 		List<Record> list = getTable();
-
 		double entropy = 0;
-
-		for (int i = 0; i < list.size(); i++) {
-			entropy += list.get(i).getChance()
-					* (Math.log(list.get(i).getChance()) / Math.log(2));
+		
+		for (Record rec : list) {
+			entropy += rec.getChance()
+					* (Math.log(rec.getChance()) / Math.log(2));
 		}
-
-		return (double) entropy;
+		return (double) entropy *(-1);
 	}
 
 	public void sortTable() {

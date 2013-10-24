@@ -24,7 +24,6 @@ public class Main {
 			BufferedReader in = new BufferedReader(converter);
 			
 			Parser parser = new Parser();
-			Separator separator = new Separator();
 			List<Record> list = new ArrayList<Record>();
 			
 			System.out.println("Количество значений:");
@@ -54,6 +53,8 @@ public class Main {
 			parser.showTable();
 			System.out.println("ENTROPY - ["+parser.getEntropy()+"]");
 			System.out.println("--------------<CODE>--------------");
+			
+			Separator separator = new Separator(parser);
 			separator.separateTable();
 			
 			break;
